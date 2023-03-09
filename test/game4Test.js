@@ -12,8 +12,9 @@ describe('Game4', function () {
     const { game } = await loadFixture(deployContractAndSetVariables);
 
     // nested mappings are rough :}
-
-    await game.win();
+    const addr = await game.signer.getAddress();
+    await game.write(addr);
+    await game.win(addr);
 
     // leave this assertion as-is
     assert(await game.isWon(), 'You did not win the game');
